@@ -1,16 +1,17 @@
-from Problem import Problem
 import mshr as ms
 from fenics import *
+
 from Fluid import Fluid
+from Problem import Problem
+from solvers.Chorin import ChorinSolver
 from solvers.NewtonSteady import NewtonSteadySolver
 
-
-mesh = ms.generate_mesh(
+domain = ms.generate_mesh(
     ms.Rectangle(
         Point(0.0, 0.0),
         Point(2.2, 0.41))
     -
-    ms.Circle(Point(0.2, 0.2), 0.05), 96*2)
+    ms.Circle(Point(0.2, 0.2), 0.05), 35)
 
 ics = []
 bcs = [
@@ -20,8 +21,8 @@ bcs = [
         degree=2), 'on_boundary && near(x[0], 0.0)'],
     [1, Constant(0.0), 'on_boundary && near(x[0], 2.2)']]
 
-problem = Problem(mesh, ics, bcs)
-fluid = Fluid(1.0, 0.01, 1, 1)
+problem = Problem(domain, ics, bcs)
+fluid = Fluid(1.0, 0.001, 1, 1)
 
-steady_solver = NewtonSteadySolver()
-steady_solver.Solve(fluid, problem, 1, 'fac', 10**-3)
+steady_solver = ChorinSolver()
+steady_solver.Solve(fluid, problem, 1, 'Flow', 10**-3)

@@ -10,7 +10,7 @@ This repository is specifically designed for individuals who are new to the fiel
 
 The Jupyter notebooks contain step-by-step instructions on how to implement various CFD techniques, such as Chorin's Projection Method for solving the incompressible Navier-Stokes equations, as well as the Heat-Transfer equation to account for thermal effects. These notebooks are accompanied by sample codes that users can modify to suit their specific needs.
 
-# Quick intoduction
+# Quick introduction
 <p align='center'>
     <img title="Flow around cylinder"
     src="./gifs/flowpastcylinder.gif"

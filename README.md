@@ -72,7 +72,12 @@ Here, `t_prev` is assigned an initial condition using `Expression()` with an exp
 
 ## Weak forms
 In order to solve Partial Differential Equations (PDEs) using FEniCS, it is necessary to represent them in their weak form. For instance, the first step of the Chorin's Projection Method described in the [Solution Strategy](#solution-strategy) section can be represented in its weak form as follows:
-$$\int\limits_\Omega \frac{\mathbf{u}^\star - \mathbf{u}^n}{\Delta t} \cdot v \,dx = - \int\limits_\Omega \nabla\mathbf{u}^n \cdot v \,dx -\int\limits_\Omega \nu\,\nabla\mathbf{u}\cdot\nabla\,v\,dx $$
+
+```math
+\int\limits_\Omega \frac{\mathbf{u}^\star - \mathbf{u}^n}{\Delta t} \cdot v \,dx = 
+- \int\limits_\Omega \nabla\mathbf{u}^n \cdot v \,dx 
+- \int\limits_\Omega \nu\,\nabla\mathbf{u}\cdot\nabla\,v\,dx
+```
 
 The full derivation of equation weak forms can be found in [the file](/docs/WeakFormsDerivation.md). By expressing PDEs in their weak form, FEniCS can utilize finite element methods to discretize the problem and obtain a numerical solution. 
 
@@ -101,16 +106,16 @@ $$\nabla \mathbf{u}^{\star} = \frac{\Delta t}{\rho} \nabla^{2}\,p$$
 Apply pressure boundary conditions.
 
 3. Correct the tentitive velocity by updating it with the pressure field obtained in the previous step. This step can be represented by the following equation:
-$$
+```math
 \mathbf{u}^{n+1}=\mathbf{u}^{\star} - \frac{\Delta t}{\rho}\nabla\,p^{n+1}
-$$ 
+```
 Velocity boundary conditions are then applied.
 
 4. Optional: Solve Heat-Tranfer equation for $T^{n+1}$ using velocity $\mathbf{u}^{n+1}$
-$$
+```math
 \frac{T^{n+1}-T^{n}}{\Delta t} 
 = \alpha \nabla^{2}T^{n} - \frac{1}{\rho C_{p}} (\mathbf{u}\cdot\nabla)T^{n}
-$$
+```
 
 5. Advance in time
 

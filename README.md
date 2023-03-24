@@ -20,7 +20,7 @@ The Jupyter notebooks contain step-by-step instructions on how to implement vari
 
 ## Simulation parameters
 During this step, we define the simulation parameters, including:
-- $\Delta t $ - timestep length ($\mathrm{s}$), which should be selected carefully as it significantly affects the stability of the simulation. To determine the appropriate value, the CFL condition must be taken into account.
+- $\Delta t$ - timestep length ($\mathrm{s}$), which should be selected carefully as it significantly affects the stability of the simulation. To determine the appropriate value, the CFL condition must be taken into account.
 - $N$ - the number of timesteps.
 
 Some physical properties of the fluid are:
@@ -72,11 +72,13 @@ Here, `t_prev` is assigned an initial condition using `Expression()` with an exp
 
 ## Weak forms
 In order to solve Partial Differential Equations (PDEs) using FEniCS, it is necessary to represent them in their weak form. For instance, the first step of the Chorin's Projection Method described in the [Solution Strategy](#solution-strategy) section can be represented in its weak form as follows:
-$$
+
+```math
 \int\limits_\Omega \frac{\mathbf{u}^\star - \mathbf{u}^n}{\Delta t} \cdot v \,dx = 
-- \int\limits_\Omega \nabla\mathbf{u}^n \cdot v \,dx
--\int\limits_\Omega \nu\,\nabla\mathbf{u}\cdot\nabla\,v\,dx 
-$$
+- \int\limits_\Omega \nabla\mathbf{u}^n \cdot v \,dx 
+- \int\limits_\Omega \nu\,\nabla\mathbf{u}\cdot\nabla\,v\,dx
+```
+
 The full derivation of equation weak forms can be found in [the file](/docs/WeakFormsDerivation.md). By expressing PDEs in their weak form, FEniCS can utilize finite element methods to discretize the problem and obtain a numerical solution. 
 
 In code:
@@ -92,11 +94,11 @@ momentum_residuum = (
 The aim of this project is to solve the incompressible Navier-Stokes equations using Chorin's Projection Method (steps 1-3). The solution strategy can be summarized in the following steps:
 
 1. Solve the momentum equation without the pressure term to obtain the tentitive velocity denoted as $\mathbf{u}^\star$. This step can be represented by the following equation:
-$$
+```math
 \frac{\mathbf{u}^\star - \mathbf{u}^n}{\Delta t} =
  - (\mathbf{u}^{n}\cdot\nabla)\mathbf{u}^{n} 
  + \nu\,\mathbf{u}\nabla^{2}\mathbf{u}^{n}
-$$
+```
 Velocity boundary conditions are thenapplied to $\mathbf{u}^{\star}$
 
 2. Solve the pressure Poisson equation to obtain the pressure field and correct the tentitive velocity to make the fluid incompressible. The pressure Poisson equation can be represented as:
@@ -104,16 +106,16 @@ $$\nabla \mathbf{u}^{\star} = \frac{\Delta t}{\rho} \nabla^{2}\,p$$
 Apply pressure boundary conditions.
 
 3. Correct the tentitive velocity by updating it with the pressure field obtained in the previous step. This step can be represented by the following equation:
-$$
+```math
 \mathbf{u}^{n+1}=\mathbf{u}^{\star} - \frac{\Delta t}{\rho}\nabla\,p^{n+1}
-$$ 
+```
 Velocity boundary conditions are then applied.
 
 4. Optional: Solve Heat-Tranfer equation for $T^{n+1}$ using velocity $\mathbf{u}^{n+1}$
-$$
+```math
 \frac{T^{n+1}-T^{n}}{\Delta t} 
 = \alpha \nabla^{2}T^{n} - \frac{1}{\rho C_{p}} (\mathbf{u}\cdot\nabla)T^{n}
-$$
+```
 
 5. Advance in time
 

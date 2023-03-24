@@ -72,8 +72,8 @@ Substituting back into the equation, we obtain the weak form of the heat-transfe
 \frac{1}{\Delta t} \int\limits_\Omega \left(T^{(n+1)}-T^{(n)}\right) \cdot w
 =
 - \frac{k}{\rho C_p} \int\limits_\Omega (\nabla\,T) \cdot (\nabla\,w) 
-- \int\limits_\Omega (\mathbf{u}\cdot\nabla)\, T \cdot w```
-
+- \int\limits_\Omega (\mathbf{u}\cdot\nabla)\, T \cdot w
+```
 where $n$ is the current time step and $n+1$ is the next time step, and $w$ is the test function.
 
 

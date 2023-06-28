@@ -99,7 +99,7 @@ The aim of this project is to solve the incompressible Navier-Stokes equations u
  - (\mathbf{u}^{n}\cdot\nabla)\mathbf{u}^{n} 
  + \nu\,\mathbf{u}\nabla^{2}\mathbf{u}^{n}
 ```
-Velocity boundary conditions are thenapplied to $\mathbf{u}^{\star}$
+Velocity boundary conditions are then applied to $\mathbf{u}^{\star}$
 
 2. Solve the pressure Poisson equation to obtain the pressure field and correct the tentitive velocity to make the fluid incompressible. The pressure Poisson equation can be represented as:
 $$\nabla \mathbf{u}^{\star} = \frac{\Delta t}{\rho} \nabla^{2}\,p$$
